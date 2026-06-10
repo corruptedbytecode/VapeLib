@@ -5672,35 +5672,52 @@ scarcitybanner.BackgroundTransparency = 1
 scarcitybanner.Text = 'threeq.dev'
 scarcitybanner.TextScaled = true
 scarcitybanner.TextColor3 = Color3.new(1, 1, 1)
-scarcitybanner.TextStrokeTransparency = 0.5
+scarcitybanner.TextStrokeTransparency = 1
 scarcitybanner.FontFace = uipallet.Font
 scarcitybanner.RichText = true
 scarcitybanner.Parent = clickgui
 
 local bannerGradient = Instance.new('UIGradient')
-bannerGradient.Color = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
-	ColorSequenceKeypoint.new(0.4, Color3.new(0.4, 0.4, 0.4)),
-	ColorSequenceKeypoint.new(0.5, Color3.new(1, 1, 1)),
-	ColorSequenceKeypoint.new(0.6, Color3.new(0.4, 0.4, 0.4)),
-	ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1)),
-})
 bannerGradient.Rotation = 0
 bannerGradient.Parent = scarcitybanner
 
 task.spawn(function()
 	local t = 0
 	while scarcitybanner.Parent do
-		t += task.wait() * 0.6
-		local offset = (t % 1) * 2 - 0.5
-		bannerGradient.Color = ColorSequence.new({
-			ColorSequenceKeypoint.new(0, Color3.new(0.5, 0.5, 0.5)),
-			ColorSequenceKeypoint.new(math.clamp(offset - 0.15, 0, 1), Color3.new(0.5, 0.5, 0.5)),
-			ColorSequenceKeypoint.new(math.clamp(offset, 0, 1), Color3.new(1, 1, 1)),
-			ColorSequenceKeypoint.new(math.clamp(offset + 0.001, 0, 1), Color3.new(1, 1, 1)),
-			ColorSequenceKeypoint.new(math.clamp(offset + 0.15, 0, 1), Color3.new(0.5, 0.5, 0.5)),
-			ColorSequenceKeypoint.new(1, Color3.new(0.5, 0.5, 0.5)),
-		})
+		t += task.wait() * 0.45
+		local p = (t % 1)
+		local green = Color3.fromRGB(5, 200, 120)
+		local white = Color3.fromRGB(255, 255, 255)
+		local dark = Color3.fromRGB(5, 100, 60)
+
+		local shine = p
+		local k0 = math.clamp(shine - 0.35, 0.001, 0.999)
+		local k1 = math.clamp(shine - 0.1, 0.001, 0.999)
+		local k2 = math.clamp(shine, 0.001, 0.999)
+		local k3 = math.clamp(shine + 0.1, 0.001, 0.999)
+		local k4 = math.clamp(shine + 0.35, 0.001, 0.999)
+
+		local pts = {
+			{0, dark},
+			{k0, green},
+			{k1, green},
+			{k2, white},
+			{k3, green},
+			{k4, green},
+			{1, dark},
+		}
+
+		local keypoints = {}
+		local last = -1
+		for _, v in pts do
+			local pos = math.clamp(v[1], 0, 1)
+			if pos <= last then pos = last + 0.001 end
+			if pos > 1 then pos = 1 end
+			table.insert(keypoints, ColorSequenceKeypoint.new(pos, v[2]))
+			last = pos
+		end
+
+		bannerGradient.Color = ColorSequence.new(keypoints)
 	end
 end)
 local modal = Instance.new('TextButton')
