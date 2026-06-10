@@ -5684,40 +5684,39 @@ bannerGradient.Parent = scarcitybanner
 task.spawn(function()
 	local t = 0
 	while scarcitybanner.Parent do
-		t += task.wait() * 0.45
-		local p = (t % 1)
-		local green = Color3.fromRGB(5, 200, 120)
+		t += task.wait() * 0.4
+		local p = t % 1
 		local white = Color3.fromRGB(255, 255, 255)
-		local dark = Color3.fromRGB(5, 100, 60)
+		local green = Color3.fromRGB(5, 210, 120)
 
-		local shine = p
-		local k0 = math.clamp(shine - 0.35, 0.001, 0.999)
-		local k1 = math.clamp(shine - 0.1, 0.001, 0.999)
-		local k2 = math.clamp(shine, 0.001, 0.999)
-		local k3 = math.clamp(shine + 0.1, 0.001, 0.999)
-		local k4 = math.clamp(shine + 0.35, 0.001, 0.999)
+		local a = math.clamp(p - 0.2, 0.001, 0.999)
+		local b = math.clamp(p - 0.05, 0.001, 0.999)
+		local c = math.clamp(p, 0.001, 0.999)
+		local d = math.clamp(p + 0.05, 0.001, 0.999)
+		local e = math.clamp(p + 0.2, 0.001, 0.999)
 
-		local pts = {
-			{0, dark},
-			{k0, green},
-			{k1, green},
-			{k2, white},
-			{k3, green},
-			{k4, green},
-			{1, dark},
-		}
-
-		local keypoints = {}
-		local last = -1
-		for _, v in pts do
-			local pos = math.clamp(v[1], 0, 1)
-			if pos <= last then pos = last + 0.001 end
-			if pos > 1 then pos = 1 end
-			table.insert(keypoints, ColorSequenceKeypoint.new(pos, v[2]))
-			last = pos
+		local function dedup(pts)
+			local res = {}
+			local last = -1
+			for _, v in pts do
+				local pos = v[1]
+				if pos <= last then pos = last + 0.0001 end
+				pos = math.clamp(pos, 0, 1)
+				table.insert(res, ColorSequenceKeypoint.new(pos, v[2]))
+				last = pos
+			end
+			return res
 		end
 
-		bannerGradient.Color = ColorSequence.new(keypoints)
+		bannerGradient.Color = ColorSequence.new(dedup({
+			{0,    white},
+			{a,    white},
+			{b,    green},
+			{c,    green},
+			{d,    green},
+			{e,    white},
+			{1,    white},
+		}))
 	end
 end)
 local modal = Instance.new('TextButton')
