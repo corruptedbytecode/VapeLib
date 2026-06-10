@@ -19,7 +19,7 @@ local mainapi = {
 	Scale = {Value = 1},
 	ThreadFix = setthreadidentity and true or false,
 	ToggleNotifications = {},
-	Version = '4.18',
+	Version = '1.0',
 	Windows = {}
 }
 
@@ -2484,8 +2484,8 @@ function mainapi:CreateGUI()
 	makeDraggable(window)
 	local logo = Instance.new('ImageLabel')
 	logo.Name = 'VapeLogo'
-	logo.Size = UDim2.fromOffset(50, 50)
-	logo.Position = UDim2.fromOffset(11, 0)
+	logo.Size = UDim2.fromOffset(60, 60)
+	logo.Position = UDim2.fromOffset(11, 3)
 	logo.BackgroundTransparency = 1
 	logo.Image = getcustomasset('newvape/assets/new/threeq.png')
 	logo.ImageColor3 = select(3, uipallet.Main:ToHSV()) > 0.5 and uipallet.Text or Color3.new(1, 1, 1)
