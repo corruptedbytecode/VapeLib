@@ -2484,7 +2484,7 @@ function mainapi:CreateGUI()
 	makeDraggable(window)
 	local logo = Instance.new('ImageLabel')
 	logo.Name = 'VapeLogo'
-	logo.Size = UDim2.fromOffset(60, 60)
+	logo.Size = UDim2.fromOffset(50, 50)
 	logo.Position = UDim2.fromOffset(11, 3)
 	logo.BackgroundTransparency = 1
 	logo.Image = getcustomasset('newvape/assets/new/threeq.png')
