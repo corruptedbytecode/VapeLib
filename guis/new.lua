@@ -2486,7 +2486,7 @@ function mainapi:CreateGUI()
 	logo.Size = UDim2.fromOffset(62, 18)
 	logo.Position = UDim2.fromOffset(11, 10)
 	logo.BackgroundTransparency = 1
-	logo.Image = getcustomasset('newvape/assets/new/guivape.png')
+	logo.Image = getcustomasset('newvape/assets/new/threeq.png')
 	logo.ImageColor3 = select(3, uipallet.Main:ToHSV()) > 0.5 and uipallet.Text or Color3.new(1, 1, 1)
 	logo.Parent = window
 	local logov4 = Instance.new('ImageLabel')
@@ -5786,11 +5786,6 @@ mainapi:CreateCategory({
 	Name = 'World',
 	Icon = getcustomasset('newvape/assets/new/worldicon.png'),
 	Size = UDim2.fromOffset(14, 14)
-})
-mainapi:CreateCategory({
-	Name = 'Inventory',
-	Icon = getcustomasset('newvape/assets/new/inventoryicon.png'),
-	Size = UDim2.fromOffset(15, 14)
 })
 mainapi.Categories.Main:CreateDivider('misc')
 
