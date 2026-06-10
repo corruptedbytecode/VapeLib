@@ -142,7 +142,12 @@ local getfontsize = function(text, size, font)
 end
 
 local function addBlur(parent, notif)
-    return Instance.new('Frame')
+    local blur = Instance.new('ImageLabel')
+    blur.Name = 'Blur'
+    blur.BackgroundTransparency = 1
+    blur.Visible = false
+    blur.Parent = parent
+    return blur
 end
 
 local function addCorner(parent, radius)
