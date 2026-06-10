@@ -2485,7 +2485,7 @@ function mainapi:CreateGUI()
 	local logo = Instance.new('ImageLabel')
 	logo.Name = 'VapeLogo'
 	logo.Size = UDim2.fromOffset(65, 65)
-	logo.Position = UDim2.fromOffset(2, -5)
+	logo.Position = UDim2.fromOffset(2, -10)
 	logo.BackgroundTransparency = 1
 	logo.Image = getcustomasset('newvape/assets/new/threeq.png')
 	logo.ImageColor3 = select(3, uipallet.Main:ToHSV()) > 0.5 and uipallet.Text or Color3.new(1, 1, 1)
