@@ -5669,12 +5669,40 @@ local scarcitybanner = Instance.new('TextLabel')
 scarcitybanner.Size = UDim2.fromScale(1, 0.02)
 scarcitybanner.Position = UDim2.fromScale(0, 0.97)
 scarcitybanner.BackgroundTransparency = 1
-scarcitybanner.Text = 'A new discord has been created, click the discord icon to join.'
+scarcitybanner.Text = 'threeq.dev'
 scarcitybanner.TextScaled = true
 scarcitybanner.TextColor3 = Color3.new(1, 1, 1)
 scarcitybanner.TextStrokeTransparency = 0.5
 scarcitybanner.FontFace = uipallet.Font
+scarcitybanner.RichText = true
 scarcitybanner.Parent = clickgui
+
+local bannerGradient = Instance.new('UIGradient')
+bannerGradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+	ColorSequenceKeypoint.new(0.4, Color3.new(0.4, 0.4, 0.4)),
+	ColorSequenceKeypoint.new(0.5, Color3.new(1, 1, 1)),
+	ColorSequenceKeypoint.new(0.6, Color3.new(0.4, 0.4, 0.4)),
+	ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1)),
+})
+bannerGradient.Rotation = 0
+bannerGradient.Parent = scarcitybanner
+
+task.spawn(function()
+	local t = 0
+	while scarcitybanner.Parent do
+		t += task.wait() * 0.6
+		local offset = (t % 1) * 2 - 0.5
+		bannerGradient.Color = ColorSequence.new({
+			ColorSequenceKeypoint.new(0, Color3.new(0.5, 0.5, 0.5)),
+			ColorSequenceKeypoint.new(math.clamp(offset - 0.15, 0, 1), Color3.new(0.5, 0.5, 0.5)),
+			ColorSequenceKeypoint.new(math.clamp(offset, 0, 1), Color3.new(1, 1, 1)),
+			ColorSequenceKeypoint.new(math.clamp(offset + 0.001, 0, 1), Color3.new(1, 1, 1)),
+			ColorSequenceKeypoint.new(math.clamp(offset + 0.15, 0, 1), Color3.new(0.5, 0.5, 0.5)),
+			ColorSequenceKeypoint.new(1, Color3.new(0.5, 0.5, 0.5)),
+		})
+	end
+end)
 local modal = Instance.new('TextButton')
 modal.BackgroundTransparency = 1
 modal.Modal = true
